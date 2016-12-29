@@ -14,8 +14,9 @@ describe Lexer do
 				tokens.push lex.get_next_token.value
 				tokens.push lex.get_next_token.value
 				tokens.push lex.get_next_token.value
+				tokens.push lex.get_next_token.value
 
-				expect(tokens).to match_array([3,'+',2])
+				expect(tokens).to match_array([3,'+',2, nil])
 			end
 		end
 	end

@@ -45,6 +45,7 @@ class Lexer
 			# No match found, raise an error
 			error
 		end
+		# End of file is reached, token should be EOF
 		return Token.new(Token::EOF, nil)
 	end
 
