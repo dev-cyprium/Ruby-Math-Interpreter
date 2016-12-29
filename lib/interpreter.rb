@@ -21,9 +21,9 @@ class Interpreter
 	# If an unexpected token gets consumed, throw an error
 	def eat(token_type)
 		if @current_token.type != token_type
-
+			@current_token = @lexer.get_next_token
 		else
-
+			error
 		end
 	end
 
