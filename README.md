@@ -14,3 +14,6 @@ This project is fully tested with RSpec, and you can also download and run it lo
 	calc> 3 * 3 * 3 + 2 / 2 - 1
 	=> 27
 ```
+
+# Test cases
+ > TODO: Add test example
