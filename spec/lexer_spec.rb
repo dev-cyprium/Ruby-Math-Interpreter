@@ -3,10 +3,10 @@ require_relative "../lib/lexer"
 describe Lexer do
 	describe ".get_next_token" do
 		it "Returns a list of all available tokens" do
-			lex = Lexer.new("30 + - * /")
+			lex = Lexer.new("30 + - * / ( )")
 			tokens = []
 			6.times { tokens.push(lex.get_next_token.value) }
-			expect(tokens).to match_array([30,'+','-','*','/',nil])
+			expect(tokens).to match_array([30,'+','-','*','/','(',')',nil])
 		end
 		context "Given '3+2'" do
 			it "Returns the first token" do

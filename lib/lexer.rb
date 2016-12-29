@@ -50,7 +50,14 @@ class Lexer
 			when "/"
 				advance
 				return Token.new(Token::DIV, "/")
+			when "("
+				advance
+				return Token.new(Token::LPARENT, '(')
+			when ")"
+				advance
+				return Token.new(Token::RPARENT, ')')
 			end
+
 
 			# No match found, raise an error
 			error
