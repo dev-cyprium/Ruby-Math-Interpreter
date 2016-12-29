@@ -14,13 +14,28 @@ class Interpreter
 	# term: factor((mul|div) factor)*
 	# factor: INTEGER
 	#
+	def expr
+		result = term()
 
+		while [Token::PLUS, Token::MINUS].include? (@current_token.type)
+			case @current_token.type
+			when Token::PLUS
+				eat(Token::PLUS)
+				result = result + term()
+			when Token::MINUS
+				eat(Token::MINUS)
+				result = result - term()
+			end
+		end
+
+		result
+	end
 
 	private
 	# Consumes the curent token and requests a new one
 	# If an unexpected token gets consumed, throw an error
 	def eat(token_type)
-		if @current_token.type != token_type
+		if @current_token.type == token_type
 			@current_token = @lexer.get_next_token
 		else
 			error
@@ -33,13 +48,15 @@ class Interpreter
 		while [Token::MUL, Token::DIV].include? (@current_token.type)
 			case @current_token.type
 			when Token::MUL
-				result = result * factor()
 				eat(Token::MUL)
+				result = result * factor()
 			when Token::DIV
-				result = result / factor()
 				eat(Token::DIV)
+				result = result / factor()
 			end
 		end
+
+		result
 	end
 
 	def factor
