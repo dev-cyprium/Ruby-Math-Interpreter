@@ -1,3 +1,4 @@
+require_relative "token"
 #
 # String helper methods used
 #
@@ -27,14 +28,24 @@ class Lexer
 		while not(@current_char == nil)
 			# Skip whitespace
 			if @current_char.is_space?
-				self.skip_whitespace
+				skip_whitespace
 				next
 			end
 
 			# Numeric tokekn
 			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
 
+			# Digits cases
+			case @current_char
+			when '+'
+				advance
+				return Token.new(Token::PLUS, '+')
+			end
+
+			# No match found, raise an error
+			error
 		end
+		return Token.new(Token::EOF, nil)
 	end
 
 	private
@@ -52,14 +63,14 @@ class Lexer
 		result = ''
 		while not(@current_char == nil) and @current_char.is_digit?
 			result += @current_char
-			self.advance
+			advance
 		end
 		result.to_i
 	end
 
 	def skip_whitespace
 		while not(@current_char == nil) and @current_char.is_space?
-			self.advance
+			advance
 		end
 	end
 
