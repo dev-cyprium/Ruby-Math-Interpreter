@@ -86,6 +86,14 @@ describe Interpreter do
 				end
 			end
 
+			context "Given an expression with parentecies" do
+				it "Evaluates 2 * (3 + 1)" do
+					lexer = Lexer.new("2 * (3+1)")
+					inter = Interpreter.new( lexer )
+					expect(inter.expr).to eql(8)
+				end
+			end
+
 			context "Given an Error" do
 				it "Throws an Error on expression 2 +" do
 					lexer = Lexer.new("2 +")
@@ -102,6 +110,24 @@ describe Interpreter do
 				it "Throws an Error on expression 2 3 4" do
 					lexer = Lexer.new("+ 2  3")
 					inter = Interpreter.new( lexer )
+					expect{inter.expr}.to raise_error("Unknown syntax Exception")
+				end
+
+				it "Throws an Error on expression 2 ( 3" do
+					lexer = Lexer.new("2 ( 3")
+					inter = Interpreter.new( lexer )
+					expect{inter.expr}.to raise_error("Unknown syntax Exception")
+				end
+
+				it "Throws an Error on extra bracket 2 * ( 3 + 2 )) + 2" do
+					lexer = Lexer.new("2 * (3 + 2))")
+					inter = Interpreter.new( lexer )
+					expect{inter.expr}.to raise_error("Unknown syntax Exception")
+				end
+
+				it "Throws an Error on non-closing bracket 2 * ( 3 + 2 * ( 3 + 2 )" do
+					lexer = Lexer.new("2 * ( 3 + 2 * ( 3 + 2 )")
+					inter = Interpreter.new ( lexer )
 					expect{inter.expr}.to raise_error("Unknown syntax Exception")
 				end
 			end

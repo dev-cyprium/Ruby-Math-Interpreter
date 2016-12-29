@@ -61,8 +61,17 @@ class Interpreter
 
 	def factor
 		token = @current_token
-		eat(Token::INTEGER)
-		token.value
+		if token.type == Token::INTEGER
+			eat(Token::INTEGER)
+			return token.value
+		elsif token.type == Token::LPARENT
+			eat(Token::LPARENT)
+			result = self.expr
+			eat(Token::RPARENT)
+			result
+		else
+			error
+		end
 	end
 
 	# Throws syntax error
