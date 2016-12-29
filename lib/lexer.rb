@@ -84,6 +84,7 @@ class Lexer
 			result += @current_char
 			advance
 		end
+		raise 'Number too big Exception' if result.length > 15
 		result.to_i
 	end
 

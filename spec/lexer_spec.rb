@@ -37,6 +37,13 @@ describe Lexer do
 			end
 		end
 
+		context "Given a number bigger then 15 digits, raise an exception" do
+			it "Raises an exception on a big number" do
+				lex = Lexer.new("1000000000000000")
+				expect{lex.get_next_token}.to raise_error("Number too big Exception")
+			end
+		end
+
 		context "Given '3 c 2'" do
 			it "Raises an Unknown token exception" do
 				lex = Lexer.new("3 c 2")
