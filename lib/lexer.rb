@@ -40,6 +40,15 @@ class Lexer
 			when '+'
 				advance
 				return Token.new(Token::PLUS, '+')
+			when '-'
+				advance
+				return Token.new(Token::MINUS, '-')
+			when '*'
+				advance
+				return Token.new(Token::MUL, '*')
+			when "/"
+				advance
+				return Token.new(Token::DIV, "/")
 			end
 
 			# No match found, raise an error
