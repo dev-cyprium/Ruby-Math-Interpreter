@@ -16,4 +16,5 @@ This project is fully tested with RSpec, and you can also download and run it lo
 ```
 
 # Test cases
- > TODO: Add test example
+To run full test suit run the command `bundle exec rspec`
+Here is the full test suit log:

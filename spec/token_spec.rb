@@ -10,7 +10,7 @@ describe Token do
 			end
 		end
 
-		context 'Given Token::EPF, nil' do
+		context 'Given Token::EOF, nil' do
 			it "Creates a new token with given values" do
 				t = Token.new(Token::EOF, nil)
 				expect(t.value).to eql(nil)
