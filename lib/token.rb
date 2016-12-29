@@ -8,6 +8,7 @@ class Token
 	EOF = "EOF"
 	LPARENT = "("
 	RPARENT = ")"
+	FACT = "!"
 
 	attr_accessor :type, :value
 

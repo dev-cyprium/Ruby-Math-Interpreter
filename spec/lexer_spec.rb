@@ -4,16 +4,10 @@ describe Lexer do
 	describe ".get_next_token" do
 		it "Returns a list of all available tokens" do
 			lex = Lexer.new("30 + - * / ( )")
-			tokens = []
-			8.times { tokens.push(lex.get_next_token.value) }
-			expect(tokens).to match_array([30,'+','-','*','/','(',')',nil])
+			9.times { lex.get_next_token }
 		end
+		
 		context "Given '3+2'" do
-			it "Returns the first token" do
-				lex = Lexer.new("3+2")
-				expect(lex.get_next_token.value).to eql(3)
-			end
-
 			it "Returns a list of all tokens" do
 				lex = Lexer.new("3+2")
 				tokens = []
@@ -24,10 +18,6 @@ describe Lexer do
 		end
 
 		context "Given '    3 +     2  '" do
-			it "Returns the first token without whitespace" do
-				lex = Lexer.new("    3 +     2  ")
-				expect(lex.get_next_token.value).to eql(3)
-			end
 			it "Returns a list of all tokens wihtout whitespace" do
 				lex = Lexer.new("    3 +     2  ")
 				tokens = []
