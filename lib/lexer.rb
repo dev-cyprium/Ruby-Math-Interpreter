@@ -35,7 +35,8 @@ class Lexer
 			# Numeric tokekn
 			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
 
-			# Digits cases
+			# Operation cases
+			# Advance the current character, and generate a token
 			case @current_char
 			when '+'
 				advance
