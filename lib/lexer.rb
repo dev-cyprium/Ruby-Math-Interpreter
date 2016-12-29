@@ -1,4 +1,17 @@
 #
+# String helper methods used
+#
+class String
+	def is_digit?
+		self =~ /\d/
+	end
+
+	def is_space?
+		self =~ /\s/
+	end
+end
+
+#
 # Class used to tokenize the string intro token stream
 #
 class Lexer
@@ -9,6 +22,7 @@ class Lexer
 		@current_char = text[0]
 	end
 
+	# Returns the next token in the string
 	def get_next_token
 
 	end
