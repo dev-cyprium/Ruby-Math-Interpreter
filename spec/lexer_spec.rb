@@ -45,7 +45,7 @@ describe Lexer do
 			it "Raises an Unknown token exception" do
 				lex = Lexer.new("3 c 2")
 				lex.get_next_token
-				expect{lex.get_next_token}.to raise_error("Unknown token exception")
+				expect{lex.get_next_token}.to raise_error("Unknown token Exception")
 			end
 		end
 	end
