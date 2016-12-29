@@ -24,7 +24,17 @@ class Lexer
 
 	# Returns the next token in the string
 	def get_next_token
+		while not(@current_char == nil)
+			# Skip whitespace
+			if @current_char.is_space?
+				self.skip_whitespace
+				next
+			end
 
+			# Numeric tokekn
+			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
+
+		end
 	end
 
 	private
@@ -38,6 +48,22 @@ class Lexer
 		end
 	end
 
+	def integer
+		result = ''
+		while not(@current_char == nil) and @current_char.is_digit?
+			result += @current_char
+			self.advance
+		end
+		result.to_i
+	end
+
+	def skip_whitespace
+		while not(@current_char == nil) and @current_char.is_space?
+			self.advance
+		end
+	end
+
+	# Unknown token error
 	def error
 		raise "Unknown token exception"
 	end
