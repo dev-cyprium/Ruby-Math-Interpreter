@@ -4,7 +4,14 @@ require_relative 'lib/lexer'
 while  true
 	print "expr> "
 	input = gets.chomp
-	lexer = Lexer.new(input)
-	inter = Interpreter.new(lexer)
-	puts "=> #{inter.expr}"
+	
+	begin
+		lexer = Lexer.new(input)
+		inter = Interpreter.new(lexer)
+		result = inter.expr
+	rescue Exception => e
+		puts e.message
+	else
+		puts "=> #{result}"
+	end
 end
