@@ -70,6 +70,7 @@ class Lexer
 		end
 	end
 
+	# Gather all the grouped digits
 	def integer
 		result = ''
 		while not(@current_char == nil) and @current_char.is_digit?
@@ -79,6 +80,7 @@ class Lexer
 		result.to_i
 	end
 
+	# Advance over all the whitespace characters
 	def skip_whitespace
 		while not(@current_char == nil) and @current_char.is_space?
 			advance
