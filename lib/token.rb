@@ -2,6 +2,9 @@
 class Token
 	INTEGER = "INT"
 	PLUS = "PLU"
+	MINUS = "MIN"
+	MUL = "MUL"
+	DIV = "DIV"
 	EOF = "EOF"
 
 	attr_accessor :type, :value
