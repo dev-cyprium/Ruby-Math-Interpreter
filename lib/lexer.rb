@@ -89,6 +89,6 @@ class Lexer
 
 	# Unknown token error
 	def error
-		raise "Unknown token exception"
+		raise "Unknown token Exception"
 	end
 end
