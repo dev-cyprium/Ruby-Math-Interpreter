@@ -125,8 +125,16 @@ describe Interpreter do
 					expect{inter.expr}.to raise_error("Unknown syntax Exception")
 				end
 
+				# TODO: add a test case here (1+()2)
+
 				it "Throws an Error on non-closing bracket 2 * ( 3 + 2 * ( 3 + 2 )" do
 					lexer = Lexer.new("2 * ( 3 + 2 * ( 3 + 2 )")
+					inter = Interpreter.new ( lexer )
+					expect{inter.expr}.to raise_error("Unknown syntax Exception")
+				end
+
+				it "Throws an Error on empty bracket 2 ()" do
+					lexer = Lexer.new("2 ()")
 					inter = Interpreter.new ( lexer )
 					expect{inter.expr}.to raise_error("Unknown syntax Exception")
 				end

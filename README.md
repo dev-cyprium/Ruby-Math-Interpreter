@@ -5,6 +5,16 @@ Atempting to learn parsers/interpreters I've written a fully-featured math inter
 four basic math operations: *, +, -, /
 This project is fully tested with RSpec, and you can also download and run it localy with `ruby main.rb`
 
+# Features
+## Lexer
+Lexer creates a stream of tokens for the given input. 
+## Parser
+Creates a AST ( Apstract Syntax Tree ) with the given token stream
+> TODO: Create the parser class and parse the AST to the interpreter
+## Interpreter
+Executes the given AST to calculate the expression
+> Currently, interpreter executes the stream of tokens without building an AST
+
 # Examples
 ```
 	calc> 2 + 3 / 3

@@ -67,6 +67,7 @@ class Interpreter
 		elsif token.type == Token::LPARENT
 			eat(Token::LPARENT)
 			result = self.expr
+			puts "*******RECURSIVE CALLBACK #{result}"
 			eat(Token::RPARENT)
 			result
 		else
