@@ -15,6 +15,10 @@ class Interpreter
 	# factor: INTEGER
 	#
 	def expr
+		# Check if all the parentesies are closed
+		text = @lexer.text
+		check_parentesies_pairs( text )
+		
 		result = term()
 
 		while [Token::PLUS, Token::MINUS].include? (@current_token.type)
@@ -72,6 +76,17 @@ class Interpreter
 		else
 			error
 		end
+	end
+
+	# Cheks if all the parentesies are closed
+	def check_parentesies_pairs (input)
+		lparen_count = 0
+		rparen_count = 0
+		input.each_char do |char|
+			lparen_count+=1 if char == '('
+			rparen_count+=1 if char == ')'
+		end
+		raise error if lparen_count != rparen_count
 	end
 
 	# Throws syntax error
