@@ -27,4 +27,3 @@ Executes the given AST to calculate the expression
 
 # Test cases
 To run full test suit run the command `bundle exec rspec`
-Here is the full test suit log:
