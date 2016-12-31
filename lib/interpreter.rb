@@ -5,20 +5,43 @@ class Interpreter
 	def initialize(lexer)
 		@lexer = lexer
 		@current_token = @lexer.get_next_token
+
+		@checked = false
 	end
 
+	# Calculate the expression
+	def parse
+		result = expr()
+		error if @current_token.type != Token::EOF
+		result
+	end
+
+	private
+	# Consumes the curent token and requests a new one
+	# If an unexpected token gets consumed, throw an error
+	def eat(token_type)
+		if @current_token.type == token_type
+			@current_token = @lexer.get_next_token
+		else
+			error
+		end
+	end
 
 	#
 	# Grammar used:
 	# expr: term((plus|minus) term)*
 	# term: factor((mul|div) factor)*
-	# factor: INTEGER
+	# factor: INTEGER | LPARENT expr RPARENT"
 	#
 	def expr
-		# Check if all the parentesies are closed
-		text = @lexer.text
-		check_parentesies_pairs( text )
-		
+		# Check if all the parentesies are closed ONCE
+		# This is a recursive function, so @checked flag is used to avoid multiple checks
+		if not(@checked)
+			text = @lexer.text
+			check_parentesies_pairs( text )
+			@checked = true
+		end
+
 		result = term()
 
 		while [Token::PLUS, Token::MINUS].include? (@current_token.type)
@@ -33,17 +56,6 @@ class Interpreter
 		end
 
 		result
-	end
-
-	private
-	# Consumes the curent token and requests a new one
-	# If an unexpected token gets consumed, throw an error
-	def eat(token_type)
-		if @current_token.type == token_type
-			@current_token = @lexer.get_next_token
-		else
-			error
-		end
 	end
 
 	def term
@@ -70,13 +82,14 @@ class Interpreter
 			return token.value
 		elsif token.type == Token::LPARENT
 			eat(Token::LPARENT)
-			result = self.expr
+			result = expr
 			eat(Token::RPARENT)
 			result
 		else
 			error
 		end
 	end
+
 
 	# Cheks if all the parentesies are closed
 	def check_parentesies_pairs (input)

@@ -8,7 +8,7 @@ while  true
 	begin
 		lexer = Lexer.new(input)
 		inter = Interpreter.new(lexer)
-		result = inter.expr
+		result = inter.parse
 	rescue Exception => e
 		puts e.message
 	else
