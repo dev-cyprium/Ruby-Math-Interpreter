@@ -11,6 +11,7 @@ class Parser
 		@lexer = lexer
 
 		@current_token = lexer.get_next_token
+		@last_token = nil
 	end
 
 	def parse
@@ -22,6 +23,7 @@ class Parser
 	# Consumes the token, and gets the next one
 	def eat(token_type)
 		if token_type == @current_token.type
+			@last_token = @current_token
 			@current_token = @lexer.get_next_token
 		else
 			error
@@ -30,7 +32,7 @@ class Parser
 
 	# Error method, called when parsing fails
 	def error
-
+		raise "Unespected token #{@current_token} after #{@last_token}"
 	end
 
 	# 
