@@ -38,7 +38,7 @@ class Parser
 	# expr: term((plus|minus) term) *
 	#
 	def expr
-
+		node = term()
 	end
 
 	#
@@ -46,6 +46,7 @@ class Parser
 	# term: factor((mul|div) factor) *
 	#
 	def term
+		node = factor()
 	end
 
 	#
@@ -53,5 +54,11 @@ class Parser
 	# factor: INTEGER | LPARENT expr RPARENT
 	#
 	def factor
+		token = @current_token
+		if token.type == Token::INTEGER
+
+		elsif token.type == Token::LPARENT
+			
+		end
 	end
 end
