@@ -11,6 +11,9 @@ class Parser
 		@lexer = lexer
 	end
 
+	def parse
+	end
+	
 	# Private methods used to parse the math expression
 	private
 end
