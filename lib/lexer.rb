@@ -18,6 +18,7 @@ end
 class Lexer
 	# Read the string input
 	attr_reader :text
+	
 	# The lexer needs a referance to an input text
 	def initialize(text)
 		@text = text
