@@ -5,8 +5,6 @@ require_relative 'lexer'
 # Creates the tree of nodes, that the interpreter can exectute
 #
 class Parser
-	attr_reader ast
-
 	def initialize(lexer)
 		@lexer = lexer
 
@@ -49,6 +47,19 @@ class Parser
 	#
 	def term
 		node = factor()
+
+		while [Token::DIV, Token::MUL].include? @current_token.type 
+			token = @current_token
+			case @current_token.type
+			when Token::DIV 
+				eat(Token::DIV)
+			when Token::MUL 
+				eat(Token::MUL)
+			end
+
+			node = BinOp.new(node, token, factor() )
+		end
+		node
 	end
 
 	#
