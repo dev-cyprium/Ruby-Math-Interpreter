@@ -14,7 +14,9 @@ class Parser
 	end
 
 	def parse
-		expr
+		root = expr
+		error if @current_token.type != Token::EOF
+		return root
 	end
 
 	# Private methods used to parse the math expression
