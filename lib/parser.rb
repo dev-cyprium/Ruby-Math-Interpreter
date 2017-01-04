@@ -1,4 +1,5 @@
 require_relative 'token'
+require_relative 'node'
 require_relative 'lexer'
 #
 # Parser class for parsing the AST
@@ -13,6 +14,7 @@ class Parser
 	end
 
 	def parse
+		expr
 	end
 
 	# Private methods used to parse the math expression
