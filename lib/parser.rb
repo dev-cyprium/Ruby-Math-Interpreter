@@ -44,7 +44,7 @@ class Parser
 	def expr
 		node = term()
 
-		while [Token::PLUS, TOKEN::MINUS].include? @current_token.type
+		while [Token::PLUS, Token::MINUS].include? @current_token.type
 			token = @current_token
 			case @current_token.type
 			when Token::PLUS
