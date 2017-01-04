@@ -41,6 +41,19 @@ class Parser
 	#
 	def expr
 		node = term()
+
+		while [Token::PLUS, TOKEN::MINUS].include? @current_token.type
+			token = @current_token
+			case @current_token.type
+			when Token::PLUS
+				eat(Token::PLUS)
+			when Token::MINUS
+				eat(Token::MINUS)
+			end
+
+			node = BinOp.new(node, token, term() )
+		end
+		node
 	end
 
 	#
