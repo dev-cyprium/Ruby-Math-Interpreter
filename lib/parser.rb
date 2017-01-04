@@ -56,9 +56,13 @@ class Parser
 	def factor
 		token = @current_token
 		if token.type == Token::INTEGER
-
+			eat(Token::INTEGER)
+			return Num.new(token)
 		elsif token.type == Token::LPARENT
-			
+			eat(TOKEN::LPARENT)
+			node = expr()
+			eat(TOKEN::RPARENT)
+			return node
 		end
 	end
 end
