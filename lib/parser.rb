@@ -9,6 +9,8 @@ class Parser
 
 	def initialize(lexer)
 		@lexer = lexer
+
+		@current_token = lexer.get_next_token
 	end
 
 	def parse
@@ -17,7 +19,21 @@ class Parser
 	# Private methods used to parse the math expression
 	private
 
-	#
+	# Consumes the token, and gets the next one
+	def eat(token_type)
+		if token_type == @current_token.type
+			@current_token = @lexer.get_next_token
+		else
+			error
+		end
+	end
+
+	# Error method, called when parsing fails
+	def error
+
+	end
+
+	# 
 	# Expression method, the first method in the GRAMMAR
 	# expr: term((plus|minus) term) *
 	#
