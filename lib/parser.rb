@@ -19,14 +19,23 @@ class Parser
 
 	#
 	# Expression method, the first method in the GRAMMAR
-	# expr: term((plus|minus) term)*
+	# expr: term((plus|minus) term) *
 	#
 	def expr
+
 	end
 
+	#
+	# Term method, the second method in the GRAMMAR
+	# term: factor((mul|div) factor) *
+	#
 	def term
 	end
 
+	#
+	# Factor method, the third method in the GRRAMMAR
+	# factor: INTEGER | LPARENT expr RPARENT
+	#
 	def factor
 	end
 end
