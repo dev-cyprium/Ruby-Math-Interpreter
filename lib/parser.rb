@@ -17,6 +17,10 @@ class Parser
 	# Private methods used to parse the math expression
 	private
 
+	#
+	# Expression method, the first method in the GRAMMAR
+	# expr: term((plus|minus) term)*
+	#
 	def expr
 	end
 
