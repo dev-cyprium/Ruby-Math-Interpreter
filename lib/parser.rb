@@ -13,7 +13,16 @@ class Parser
 
 	def parse
 	end
-	
+
 	# Private methods used to parse the math expression
 	private
+
+	def expr
+	end
+
+	def term
+	end
+
+	def factor
+	end
 end
