@@ -39,6 +39,9 @@ class Lexer
 				next
 			end
 
+			# Text token Variable/Keyword
+			return _id if @current_char.is_alnum?
+
 			# Numeric tokekn
 			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
 
