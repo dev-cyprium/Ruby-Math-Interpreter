@@ -3,9 +3,10 @@ require_relative "../lib/lexer"
 describe Lexer do
 	describe ".get_next_token" do
 		it "Returns a list of all available tokens" do
-			tokens = "30 + - * / ( )"
+			tokens = "30 + - * / ( ) var . BEGIN END ;"
 			lex = Lexer.new(tokens)
-			(tokens.length + 1).times { lex.get_next_token }
+			(tokens.length).times { lex.get_next_token }
+			expect(lex.get_next_token.type).to eql("EOF")
 		end
 		
 		context "Given '3+2'" do
