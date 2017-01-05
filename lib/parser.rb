@@ -100,18 +100,19 @@ class Parser
 	# factor: (plus|minus) factor | INTEGER | LPARENT expr RPARENT
 	#
 	def factor
-		case @current_token.type
+		token = @current_token
+		case token.type
 		when Token::PLUS
 			eat(Token::PLUS)
-			node = UnaryOp.New(@current_token, factor())
+			node = UnaryOp.new(token, factor())
 			return node
 		when Token::MINUS
 			eat(Token::MINUS)
-			node = UnaryOp.new(@current_token, factor())
+			node = UnaryOp.new(token, factor())
 			return node
 		when Token::INTEGER
 			eat(Token::INTEGER)
-			return Num.new(@current_token)
+			return Num.new(token)
 		when Token::LPARENT
 			eat(Token::LPARENT)
 			node = expr()
