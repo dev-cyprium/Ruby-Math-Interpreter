@@ -10,6 +10,10 @@ class String
 	def is_space?
 		self =~ /\s/
 	end
+
+	def is_alnum?
+		self =! /\w/
+	end
 end
 
 #
@@ -70,6 +74,18 @@ class Lexer
 	end
 
 	private
+	# Handle identifiers and reserver keywords
+	def _id
+		result = ''
+		while not @current_char.nil? and @current_char.is_alnum?
+			result += current_char
+			advance
+		end
+
+		token = RESERVED_KEYWORDS[result]
+		token = Token.new(result, ID) if token.nil?
+	end
+
 	# Moves the pointer to the next character
 	def advance
 		@pos += 1
