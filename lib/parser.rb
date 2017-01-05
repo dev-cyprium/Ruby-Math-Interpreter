@@ -101,15 +101,16 @@ class Parser
 	#
 	def factor
 		token = @current_token
-		if token.type == Token::INTEGER
+		case token.type
+		when Token::INTEGER
 			eat(Token::INTEGER)
 			return Num.new(token)
-		elsif token.type == Token::LPARENT
+		when Token::LPARENT
 			eat(Token::LPARENT)
 			node = expr()
 			eat(Token::RPARENT)
 			return node
-		else 
+		else
 			error
 		end
 	end
