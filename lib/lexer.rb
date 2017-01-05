@@ -47,13 +47,17 @@ class Lexer
 
 			# Asignment character
 			if @current_char == ':' and peek() == '='
-				2.times { advance }
-				return  Token.new(Token::ASSIGN, ':=') 
+				advance 
+				advance
+				return Token.new(Token::ASSIGN, ':=') 
 			end
 
 			# Operation cases
 			# Advance the current character, and generate a token
 			case @current_char
+			when '.'
+				advance
+				return Token.new(Token::DOT, '.')
 			when ';'
 				advance
 				return Token.new(Token::SEMI, ';')
