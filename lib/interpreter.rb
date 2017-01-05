@@ -1,7 +1,19 @@
 #
+# Abstract class used as 
+# a helper to visit nodes
+#
+class NodeVisitor
+	def visit(node)
+		method_name = "visit_" + node.class.name
+		m = self.method(method_name.to_sym)
+		return m.call(node)
+	end
+end
+
+#
 # Class used to interpret AST
 # feed in the AST ( Abstract syntax tree you want to calculate )
-class Interpreter
+class Interpreter < NodeVisitor
 	
 	def initialize(ast)
 		@root = ast
