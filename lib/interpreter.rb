@@ -22,9 +22,13 @@ class Interpreter < NodeVisitor
 	def visit_BinOp(node)
 		case node.op.type
 		when Token::PLUS
+			return self.visit(node.left) + self.visit(node.right)
 		when Token::MINUS
+			return self.visit(node.left) - self.visit(node.right)
 		when Token::MUL
+			return self.visit(node.left) * self.visit(node.right)
 		when Token::DIV
+			return self.visit(node.left) / self.visit(node.right)
 		end
 	end
 
