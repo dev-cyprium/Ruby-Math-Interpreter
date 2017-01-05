@@ -36,6 +36,8 @@ end
 # Unarry Operator node
 #
 class UnaryOp < AST
+	attr_reader :op, :expr
+
 	def initialize(op, expr)
 		@token = @op = op
 		@expr = expr
