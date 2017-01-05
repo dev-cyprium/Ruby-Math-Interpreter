@@ -45,12 +45,15 @@ class Lexer
 			# Numeric tokekn
 			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
 
+			# Asignment character
+			if @current_char == ':' and peek() == '='
+				2.times { advance }
+				return  Token.new(Token::ASSIGN, ':=') 
+			end
+
 			# Operation cases
 			# Advance the current character, and generate a token
 			case @current_char
-			when (':' && peek() == '=')
-				2.times { advance }
-				return Token(Token::ASIGN, ':=')
 			when ';'
 				advance
 				return Token.new(Token::SEMI, ';')
@@ -87,12 +90,12 @@ class Lexer
 	def _id
 		result = ''
 		while not @current_char.nil? and @current_char.is_alnum?
-			result += current_char
+			result += @current_char
 			advance
 		end
 
-		token = RESERVED_KEYWORDS[result]
-		token = Token.new(result, ID) if token.nil?
+		token = Token::RESERVED_KEYWORDS[result]
+		token = Token.new(result, Token::ID) if token.nil?
 	end
 
 	# Looks in the position of the next token
