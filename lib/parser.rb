@@ -111,7 +111,7 @@ class Parser
 			return node
 		when Token::INTEGER
 			eat(Token::INTEGER)
-			return Num.new(token)
+			return Num.new(@current_token)
 		when Token::LPARENT
 			eat(Token::LPARENT)
 			node = expr()
