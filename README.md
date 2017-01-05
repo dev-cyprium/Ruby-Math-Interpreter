@@ -9,11 +9,9 @@ This project is fully tested with RSpec, and you can also download and run it lo
 ## Lexer
 Lexer creates a stream of tokens for the given input. 
 ## Parser
-Creates a AST ( Apstract Syntax Tree ) with the given token stream
-> TODO: Create the parser class and parse the AST to the interpreter
+Creates a AST ( Apstract Syntax Tree ) with the given token stream.
 ## Interpreter
-Executes the given AST to calculate the expression
-> Currently, interpreter executes the stream of tokens without building an AST
+Executes the given AST to calculate the expression.
 
 # Examples
 ```
