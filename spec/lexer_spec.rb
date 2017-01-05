@@ -3,8 +3,9 @@ require_relative "../lib/lexer"
 describe Lexer do
 	describe ".get_next_token" do
 		it "Returns a list of all available tokens" do
-			lex = Lexer.new("30 + - * / ( )")
-			9.times { lex.get_next_token }
+			tokens = "30 + - * / ( )"
+			lex = Lexer.new(tokens)
+			(tokens.length + 1).times { lex.get_next_token }
 		end
 		
 		context "Given '3+2'" do
@@ -41,14 +42,6 @@ describe Lexer do
 			it "Raises an exception on a big number" do
 				lex = Lexer.new("1000000000000000")
 				expect{lex.get_next_token}.to raise_error("Number too big Exception")
-			end
-		end
-
-		context "Given '3 c 2'" do
-			it "Raises an Unknown token exception" do
-				lex = Lexer.new("3 c 2")
-				lex.get_next_token
-				expect{lex.get_next_token}.to raise_error("Unknown token Exception")
 			end
 		end
 	end

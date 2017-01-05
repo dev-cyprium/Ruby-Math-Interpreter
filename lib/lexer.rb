@@ -1,7 +1,7 @@
 require_relative "token"
 #
 # String helper methods used
-#
+# TODO: Add test cases for helper methods
 class String
 	def is_digit?
 		self =~ /\d/
@@ -16,7 +16,7 @@ class String
 	end
 
 	def is_letter?
-		not(self =~ /\d/)
+		self =~ /[a-zA-Z]/
 	end
 end
 
@@ -46,7 +46,7 @@ class Lexer
 			# Text token Variable/Keyword
 			return _id if @current_char.is_letter?
 
-			# Numeric tokekn
+			# Numeric token
 			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
 
 			# Asignment character
