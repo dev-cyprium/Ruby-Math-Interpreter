@@ -14,6 +14,10 @@ class String
 	def is_alnum?
 		self =~ /\w/
 	end
+
+	def is_letter?
+		not(self =~ /\d/)
+	end
 end
 
 #
@@ -40,7 +44,7 @@ class Lexer
 			end
 
 			# Text token Variable/Keyword
-			return _id if @current_char.is_alnum?
+			return _id if @current_char.is_letter?
 
 			# Numeric tokekn
 			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
