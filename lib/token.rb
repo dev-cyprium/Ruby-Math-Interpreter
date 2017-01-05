@@ -1,4 +1,3 @@
-# Class holding all the token information
 class Token
 	INTEGER = "INT"
 	PLUS = "PLU"
@@ -9,11 +8,11 @@ class Token
 	LPARENT = "("
 	RPARENT = ")"
 	ID = "ID"
-
-	RESERVED_KEYWORDS = {
-		"BEGIN": Token.new("BEGIN", "BEGIN"),
-		"END": Token.new("END", "END")
-	}
+	ASSIGN = "ASSIGN"
+	BEGIN_PAS = "BEGIN"
+	END_PAS = "END"
+	SEMI = "SEMI"
+	DOT = "DOT"
 
 	attr_accessor :type, :value
 
@@ -21,4 +20,11 @@ class Token
 		@type = type
 		@value = value
 	end
+
+
+	# Begin/End keywords
+	RESERVED_KEYWORDS = {
+		begin: Token.new("BEGIN", "BEGIN"),
+		end: Token.new("END", "END")
+	}
 end
