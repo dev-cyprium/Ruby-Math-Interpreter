@@ -29,6 +29,7 @@ class Interpreter < NodeVisitor
 	end
 
 	# Creates the post-order notation of the given AST
+	# IT DOES NOT WORK WITH UNARY OPERATORS!
 	def to_reverse_polish
 		@polish = []
 		post_order_traverse(@root)

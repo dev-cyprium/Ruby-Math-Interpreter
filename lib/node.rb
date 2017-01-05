@@ -31,3 +31,13 @@ class Num < AST
 		@left = @right = nil
 	end
 end
+
+#
+# Unarry Operator node
+#
+class UnaryOp < AST
+	def initialize(op, expr)
+		@token = @op = op
+		@expr = expr
+	end
+end
