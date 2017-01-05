@@ -10,7 +10,6 @@ class Parser
 		@lexer = lexer
 
 		@current_token = lexer.get_next_token
-		@last_token = nil
 	end
 
 	def parse
@@ -38,7 +37,6 @@ class Parser
 	# Consumes the token, and gets the next one
 	def eat(token_type)
 		if token_type == @current_token.type
-			@last_token = @current_token
 			@current_token = @lexer.get_next_token
 		else
 			error
@@ -47,7 +45,7 @@ class Parser
 
 	# Error method, called when parsing fails
 	def error
-		raise "Unexpected token #{@current_token.type} after #{@last_token.type}"
+		raise "Unexpected token in syntax"
 	end
 
 	# Parentesies error method, raised when parentesies aren't closed

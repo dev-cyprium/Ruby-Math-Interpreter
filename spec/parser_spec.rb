@@ -84,6 +84,9 @@ describe Parser do
 			it 'Throws an Error on expression 2 +' do
 				expect{Parser.new( Lexer.new('2 + ') ).parse }.to raise_error('Unexpected token EOF after PLU')
 			end
+			it "Throws an Error on expression + 2 3" do
+				expect{Parser.new(Lexer.new '+ 2 3').parse }.to raise_error('Unexpected token INT after INT')
+			end
 		end
 	end
 end
