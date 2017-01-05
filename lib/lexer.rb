@@ -48,6 +48,12 @@ class Lexer
 			# Operation cases
 			# Advance the current character, and generate a token
 			case @current_char
+			when (':' && peek() == '=')
+				2.times { advance }
+				return Token(Token::ASIGN, ':=')
+			when ';'
+				advance
+				return Token.new(Token::SEMI, ';')
 			when '+'
 				advance
 				return Token.new(Token::PLUS, '+')
