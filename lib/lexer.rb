@@ -89,6 +89,16 @@ class Lexer
 		token = Token.new(result, ID) if token.nil?
 	end
 
+	# Looks in the position of the next token
+	def peek
+		peek_pos = @pos + 1
+		if peek_pos > @text.length - 1
+			return nil
+		else
+			return @text[peek_pos]
+		end
+	end
+
 	# Moves the pointer to the next character
 	def advance
 		@pos += 1
