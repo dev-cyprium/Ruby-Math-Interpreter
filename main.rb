@@ -1,5 +1,6 @@
 require_relative 'lib/interpreter'
 require_relative 'lib/lexer'
+require_relative 'lib/parser'
 
 while  true
 	print "expr> "
@@ -7,8 +8,9 @@ while  true
 	
 	begin
 		lexer = Lexer.new(input)
-		inter = Interpreter.new(lexer)
-		result = inter.parse
+		parser = Parser.new(lexer)
+		interpreter = Interpreter.new(parser)
+		result = interpreter.interpret
 	rescue Exception => e
 		puts e.message
 	else
