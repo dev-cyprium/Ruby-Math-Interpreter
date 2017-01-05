@@ -23,10 +23,11 @@ end
 # Used to store information for the numerical node
 #
 class Num < AST
-	attr_reader :token, :value
+	attr_reader :token, :value, :left, :right
 
 	def initialize(token)
 		@token = token
 		@value = token.value
+		@left = @right = nil
 	end
 end

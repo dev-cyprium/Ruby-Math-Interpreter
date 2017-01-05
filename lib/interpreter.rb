@@ -33,7 +33,7 @@ class Interpreter < NodeVisitor
 		return if node.nil?
 		to_reverse_polish(node.left)
 		to_reverse_polish(node.right)
-
+		@polish += node.to_s
 	end
 
 	def visit_BinOp(node)
