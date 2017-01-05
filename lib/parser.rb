@@ -14,6 +14,7 @@ class Parser
 	end
 
 	def parse
+		par_error if not(parentes_closed?)
 		root = expr
 		error if @current_token.type != Token::EOF
 		return root
@@ -21,6 +22,18 @@ class Parser
 
 	# Private methods used to parse the math expression
 	private
+
+	# Checks to see if brackets are closed in the input
+	def parentes_closed?
+		input = @lexer.text
+		lparen_count = 0
+		rparen_count = 0
+		input.each_char do |char|
+			lparen_count+=1 if char == '('
+			rparen_count+=1 if char == ')'
+		end
+		lparen_count == rparen_count
+	end
 
 	# Consumes the token, and gets the next one
 	def eat(token_type)
@@ -34,7 +47,12 @@ class Parser
 
 	# Error method, called when parsing fails
 	def error
-		raise "Unespected token #{@current_token} after #{@last_token}"
+		raise "Unexpected token #{@current_token.type} after #{@last_token.type}"
+	end
+
+	# Parentesies error method, raised when parentesies aren't closed
+	def par_error
+		raise 'Parentesies not closed'
 	end
 
 	# 
@@ -93,6 +111,8 @@ class Parser
 			node = expr()
 			eat(Token::RPARENT)
 			return node
+		else 
+			error
 		end
 	end
 end

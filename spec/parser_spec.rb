@@ -69,16 +69,21 @@ describe Parser do
 				expect(root.right.left.value).to eql(2)
 				expect(root.right.right.value).to eql(1)
 			end
+
+			it 'Creates a tree of expression 3 + ( 2 / 2 )' do
+				root = Parser.new( Lexer.new('3 + ( 2 / 2 )') ).parse
+				expect(root.op.value).to eql('+')
+				expect(root.left.value).to eql(3)
+				expect(root.right.op.value).to eql('/')
+				expect(root.right.left.value).to eql(2)
+				expect(root.right.right.value).to eql(2)
+			end
 		end
 
-		it 'Creates a tree of expression 3 + ( 2 / 2 )' do
-			root = Parser.new( Lexer.new('3 + ( 2 / 2 )') ).parse
-			expect(root.op.value).to eql('+')
-			expect(root.left.value).to eql(3)
-			expect(root.right.op.value).to eql('/')
-			expect(root.right.left.value).to eql(2)
-			expect(root.right.right.value).to eql(2)
+		context 'Given an error' do
+			it 'Throws an Error on expression 2 +' do
+				expect{Parser.new( Lexer.new('2 + ') ).parse }.to raise_error('Unexpected token EOF after PLU')
+			end
 		end
-
 	end
 end
