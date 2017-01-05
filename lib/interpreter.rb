@@ -62,4 +62,13 @@ class Interpreter < NodeVisitor
 	def visit_Num(node)
 		return node.value
 	end
+
+	def visit_UnaryOp(node)
+		case node.op.type
+		when Token::PLUS
+			return +self.visit(node.expr)
+		when Token::MINUS
+			return -self.visit(node.expr)
+		end
+	end
 end
