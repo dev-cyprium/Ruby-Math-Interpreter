@@ -15,7 +15,20 @@ end
 # feed in the AST ( Abstract syntax tree you want to calculate )
 class Interpreter < NodeVisitor
 	
-	def initialize(ast)
-		@root = ast
+	def initialize(parser)
+		@parser = parser
+	end
+
+	def visit_BinOp(node)
+		case node.op.type
+		when Token::PLUS
+		when Token::MINUS
+		when Token::MUL
+		when Token::DIV
+		end
+	end
+
+	def visit_Num(node)
+		return node.value
 	end
 end
