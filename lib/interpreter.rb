@@ -19,6 +19,11 @@ class Interpreter < NodeVisitor
 		@parser = parser
 	end
 
+	def interpret
+		root = @parser.parse
+		return self.visit(root)
+	end
+
 	def visit_BinOp(node)
 		case node.op.type
 		when Token::PLUS
