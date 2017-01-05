@@ -8,6 +8,12 @@ class Token
 	EOF = "EOF"
 	LPARENT = "("
 	RPARENT = ")"
+	ID = "ID"
+
+	RESERVED_KEYWORDS = {
+		"BEGIN": Token.new("BEGIN", "BEGIN"),
+		"END": Token.new("END", "END")
+	}
 
 	attr_accessor :type, :value
 
