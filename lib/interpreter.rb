@@ -20,7 +20,7 @@ class Interpreter < NodeVisitor
 		@parser = parser
 		@root = @parser.parse
 
-		@polish = ""
+		@polish = []
 	end
 
 	# Interprets the given math expression
@@ -30,9 +30,9 @@ class Interpreter < NodeVisitor
 
 	# Creates the post-order notation of the given AST
 	def to_reverse_polish
-		@polish = ""
+		@polish = []
 		post_order_traverse(@root)
-		return @polish
+		return @polish.join(" ")
 	end
 
 	private
@@ -41,7 +41,8 @@ class Interpreter < NodeVisitor
 		return if node.nil?
 		post_order_traverse(node.left)
 		post_order_traverse(node.right)
-		@polish += node.to_s
+
+		@polish << node.to_s
 	end
 
 	def visit_BinOp(node)
