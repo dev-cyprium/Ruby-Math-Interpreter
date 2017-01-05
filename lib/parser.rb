@@ -89,9 +89,9 @@ class Parser
 			eat(Token::INTEGER)
 			return Num.new(token)
 		elsif token.type == Token::LPARENT
-			eat(TOKEN::LPARENT)
+			eat(Token::LPARENT)
 			node = expr()
-			eat(TOKEN::RPARENT)
+			eat(Token::RPARENT)
 			return node
 		end
 	end
