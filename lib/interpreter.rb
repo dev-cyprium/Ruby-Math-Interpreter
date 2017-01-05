@@ -18,6 +18,8 @@ class Interpreter < NodeVisitor
 	
 	def initialize(parser)
 		@parser = parser
+
+		@polish = ""
 	end
 
 	# Interprets the given math expression
@@ -27,7 +29,10 @@ class Interpreter < NodeVisitor
 	end
 
 	# Creates the post-order notation of the given AST
-	def to_reverse_polish
+	def to_reverse_polish(node)
+		return if node.nil?
+		to_reverse_polish(node.left)
+		to_reverse_polish(node.right)
 
 	end
 

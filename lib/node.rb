@@ -1,4 +1,7 @@
 class AST
+	def to_s
+		return "#{@token.value}"
+	end
 end
 
 # 
