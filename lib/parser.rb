@@ -97,7 +97,7 @@ class Parser
 
 	#
 	# Factor method, the third method in the GRRAMMAR
-	# factor: INTEGER | LPARENT expr RPARENT
+	# factor: (plus|minus) factor | INTEGER | LPARENT expr RPARENT
 	#
 	def factor
 		token = @current_token
