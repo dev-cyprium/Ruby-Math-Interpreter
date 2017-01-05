@@ -39,8 +39,8 @@ class Interpreter < NodeVisitor
 
 	def post_order_traverse(node)
 		return if node.nil?
-		to_reverse_polish(node.left)
-		to_reverse_polish(node.right)
+		post_order_traverse(node.left)
+		post_order_traverse(node.right)
 		@polish += node.to_s
 	end
 
