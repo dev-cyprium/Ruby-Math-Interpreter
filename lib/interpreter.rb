@@ -20,9 +20,15 @@ class Interpreter < NodeVisitor
 		@parser = parser
 	end
 
+	# Interprets the given math expression
 	def interpret
 		root = @parser.parse
 		return self.visit(root)
+	end
+
+	# Creates the post-order notation of the given AST
+	def post_order
+
 	end
 
 	def visit_BinOp(node)
