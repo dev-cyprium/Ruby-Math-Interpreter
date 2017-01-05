@@ -27,7 +27,7 @@ class Interpreter < NodeVisitor
 	end
 
 	# Creates the post-order notation of the given AST
-	def post_order
+	def to_reverse_polish
 
 	end
 
