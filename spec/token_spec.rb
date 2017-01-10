@@ -1,5 +1,4 @@
 require_relative "../lib/token"
-
 describe Token do
 	describe 'Token.new' do
 		context 'Given Token::INTEGER, 5' do

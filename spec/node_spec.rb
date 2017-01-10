@@ -1,6 +1,7 @@
 require_relative '../lib/token'
 require_relative '../lib/node'
 
+# TODO: Add a list of all the nodes for Pascal
 describe AST do
 	describe 'Numeric node' do
 		a_token = Token.new(Token::INTEGER, 5)
