@@ -14,7 +14,7 @@ class Parser
 
 	def parse
 		par_error if not(parentes_closed?)
-		root = expr
+		root = program
 		error if @current_token.type != Token::EOF
 		return root
 	end
@@ -36,7 +36,6 @@ class Parser
 
 	# Consumes the token, and gets the next one
 	def eat(token_type)
-		puts "Eaten #{token_type}"
 		if token_type == @current_token.type
 			@current_token = @lexer.get_next_token
 		else
@@ -69,9 +68,9 @@ class Parser
 	# compound_statement: BEGIN statement_list END
 	#
 	def compound_statement
-		eat(Token::BEGIN)
-		nodes = statements_list()
-		eat(Token::END)
+		eat(Token::BEGIN_PAS)
+		nodes = statement_list()
+		eat(Token::END_PAS)
 
 		root = Compound.new
 		nodes.each do |node|
@@ -87,7 +86,6 @@ class Parser
 	#
 	def statement_list
 		node = statement()
-
 		results = [node]
 
 		while @current_token.type == Token::SEMI
@@ -106,7 +104,7 @@ class Parser
 	#
 	def statement
   	case @current_token.type
-  	when Token::BEGIN
+  	when Token::BEGIN_PAS
   		node = compound_statement()
   	when Token::ID
   		node = assignment_statement()
@@ -122,7 +120,7 @@ class Parser
   def assignment_statement
   	left = variable()
   	token = @current_token
-  	eat(Token::ASIGN)
+  	eat(Token::ASSIGN)
   	right = expr()
   	node = Assign.new(left, token, right)
   end

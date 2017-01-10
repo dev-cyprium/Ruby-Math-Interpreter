@@ -1,3 +1,8 @@
+require_relative 'lexer'
+require_relative 'parser'
+require_relative 'node'
+require_relative 'token'
+
 #
 # Abstract class used as 
 # a helper to visit nodes
@@ -95,5 +100,14 @@ class Interpreter < NodeVisitor
 		val = GLOBAL_SCOPE[var_name.to_sym]
 		raise "Undefined variable #{var_name}" if val.nil?
 		val
+	end
+
+	# Create interpreter with the given string
+	def self.interpreterFactory(string)
+		interpreter = Interpreter.new( Parser.new( Lexer.new( string ) ) )
+	end
+
+	def self.magic(string)
+		self.interpreterFactory(string)
 	end
 end

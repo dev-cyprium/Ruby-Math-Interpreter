@@ -72,6 +72,8 @@ end
 # Represents a variable node, constructed with ID token
 #
 class Var < AST
+	attr_reader :value, :token
+
 	def initialize(token)
 		@token = token
 		@value = token.value
