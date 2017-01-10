@@ -53,6 +53,95 @@ class Parser
 		raise 'Parentesies not closed'
 	end
 
+	#
+	# Entry point for Pascal program
+	# program: compound_statement DOT
+	#
+	def program
+		node = compound_statement()
+		eat(Token::DOT)
+		node
+	end
+	
+	#
+	# A block between BEGIN and END
+	# compound_statement: BEGIN statement_list END
+	#
+	def compound_statement
+		eat(Token::BEGIN)
+		nodes = statements_list()
+		eat(Token::END)
+
+		root = Compound.new
+		nodes.each do |node|
+			root.children << node
+		end
+
+		root
+	end
+
+	#
+	# List of statements
+	# statement_list: statement | statement SEMI statement_list
+	#
+	def statement_list
+		node = statement()
+
+		results = [node]
+
+		while @current_token.type == Token::SEMI
+			eat(Token::SEMI)
+			results << statement()
+		end
+
+		# Throw an error when SEMI is missing
+		error() if @current_token.type == Token::ID
+
+		results
+	end
+
+	#
+	# statement: compound_statement | assignment_statement | empty
+	#
+	def statement
+  	case @current_token.type
+  	when Token::BEGIN
+  		node = compound_statement()
+  	when Token::ID
+  		node = assignment_statement()
+  	else
+  		node = empty()
+  	end
+  	node
+  end
+
+  #
+  # assignment_statement: variable ASSIGN expr
+  #
+  def assignment_statement
+  	left = variable()
+  	token = @current_token
+  	eat(Token::ASIGN)
+  	right = expr()
+  	node = Assign.new(left, token, right)
+  end
+
+  #
+  # variable: ID
+  #
+  def variable
+  	node = Var.new(@current_token)
+  	eat(Token::ID)
+  	node
+  end
+
+  # Empty operation
+  def empty
+  	NoOp.new
+  end
+
+
+
 	# 
 	# Expression method, the first method in the GRAMMAR
 	# expr: term((plus|minus) term) *
@@ -96,8 +185,12 @@ class Parser
 	end
 
 	#
-	# Factor method, the third method in the GRRAMMAR
-	# factor: (plus|minus) factor | INTEGER | LPARENT expr RPARENT
+	# Used to parse variables and numbers
+	# factor: PLUS factor
+	#         | MINUS factor
+	#         | INTEGER
+	#         | LPARENT expr RPAREN
+	#         | variable
 	#
 	def factor
 		token = @current_token
@@ -119,7 +212,7 @@ class Parser
 			eat(Token::RPARENT)
 			return node
 		else
-			error
+			node = variable()
 		end
 	end
 end
