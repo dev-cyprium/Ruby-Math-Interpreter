@@ -106,8 +106,4 @@ class Interpreter < NodeVisitor
 	def self.interpreterFactory(string)
 		interpreter = Interpreter.new( Parser.new( Lexer.new( string ) ) )
 	end
-
-	def self.magic(string)
-		self.interpreterFactory(string)
-	end
 end
