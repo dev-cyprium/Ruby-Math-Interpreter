@@ -102,7 +102,9 @@ class Lexer
 			advance
 		end
 
+		# Returns the token with the given keyword
 		token = Token::RESERVED_KEYWORDS[result]
+		# If the keyword dosn't exist, then return a token with the variable name
 		token = Token.new(result, Token::ID) if token.nil?
 	end
 

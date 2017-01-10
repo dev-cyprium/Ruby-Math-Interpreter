@@ -45,5 +45,9 @@ describe Lexer do
 				expect{lex.get_next_token}.to raise_error("Number too big Exception")
 			end
 		end
+
+		#
+		# TODO: Write test cases for Pascal code
+		#
 	end
 end
