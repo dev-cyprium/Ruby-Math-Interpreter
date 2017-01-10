@@ -43,3 +43,43 @@ class UnaryOp < AST
 		@expr = expr
 	end
 end
+
+# 
+# Represents a BEGIN ... END block
+#
+class Compound < AST
+	attr_accessor :children
+
+	def initialize()
+		@children = []
+	end
+end
+
+#
+# Represents an assign node
+#
+class Assign < AST
+	attr_reader :left, :op, :right, :token
+
+	def initialize(left, op , right)
+		@left = left
+		@token = @op = op
+		@right = right
+	end
+end
+
+#
+# Represents a variable node, constructed with ID token
+#
+class Var < AST
+	def initialize(token)
+		@token = token
+		@value = token.value
+	end
+end
+
+#
+# Represents an empty statement, for example an empty BEGIN END block
+#
+class NoOp < AST
+end
