@@ -103,9 +103,10 @@ class Lexer
 		end
 
 		# Returns the token with the given keyword
-		token = Token::RESERVED_KEYWORDS[result]
+		token = Token::RESERVED_KEYWORDS[result.downcase!]
 		# If the keyword dosn't exist, then return a token with the variable name
 		token = Token.new(result, Token::ID) if token.nil?
+		token
 	end
 
 	# Looks in the position of the next token

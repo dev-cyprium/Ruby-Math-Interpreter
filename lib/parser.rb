@@ -36,6 +36,7 @@ class Parser
 
 	# Consumes the token, and gets the next one
 	def eat(token_type)
+		puts "Eaten #{token_type}"
 		if token_type == @current_token.type
 			@current_token = @lexer.get_next_token
 		else

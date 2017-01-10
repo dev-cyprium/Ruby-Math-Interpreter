@@ -15,7 +15,10 @@ end
 # feed in the AST ( Abstract syntax tree you want to calculate )
 #
 class Interpreter < NodeVisitor
-	
+		
+	# Variable memory locations
+	GLOBAL_SCOPE = {}
+
 	def initialize(parser)
 		@parser = parser
 		@root = @parser.parse
@@ -70,5 +73,27 @@ class Interpreter < NodeVisitor
 		when Token::MINUS
 			return -self.visit(node.expr)
 		end
+	end
+
+	def visit_Compound(node)
+		node.children.each do |child|
+			self.visit(child)
+		end
+	end
+
+	def visit_NoOp(node)
+		# Pass the current node, EMPTY node
+	end
+
+	def visit_Assign(node)
+		var_name = node.left.value
+		GLOBAL_SCOPE[var_name.to_sym] = visit(node.right)
+	end
+
+	def visit_Var(node)
+		var_name = node.value
+		val = GLOBAL_SCOPE[var_name.to_sym]
+		raise "Undefined variable #{var_name}" if val.nil?
+		val
 	end
 end
