@@ -45,7 +45,7 @@ class Parser
 
 	# Error method, called when parsing fails
 	def error
-		raise "Unexpected token in syntax"
+		raise "Unexpected token in syntax #{@current_token.type}"
 	end
 
 	# Parentesies error method, raised when parentesies aren't closed
