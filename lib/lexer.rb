@@ -4,7 +4,7 @@ require_relative "token"
 # TODO: Add test cases for helper methods
 class String
 	def is_digit?
-		self =~ /\d/
+		( self =~ /\d/ ) == 0
 	end
 
 	def is_space?
