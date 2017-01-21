@@ -1,5 +1,4 @@
 BEGIN
-
     BEGIN
         number := 2;
         a := NumBer;
