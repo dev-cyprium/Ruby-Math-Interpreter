@@ -8,7 +8,7 @@ class String
 	end
 
 	def is_space?
-		self =~ /\s/
+		( self =~ /\s/ ) == 0
 	end
 
 	def is_alnum?
