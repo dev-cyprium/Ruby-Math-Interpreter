@@ -27,4 +27,14 @@ describe String do
 			expect("\n".is_space?).to eql(true)
 		end
 	end
+
+	describe "is_alnum" do
+		it "Should return true when a VAR is given" do
+			expect("VAR".is_alnum?).to eql(true)
+		end
+		it "Should return true when a BEGIN is given" do
+			expect("BEGIN".is_alnum?).to eql(true)
+		end
+
+	end
 end

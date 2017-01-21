@@ -12,7 +12,7 @@ class String
 	end
 
 	def is_alnum?
-		self =~ /\w/
+		( self =~ /\w/ ) == 0
 	end
 
 	def is_letter?
