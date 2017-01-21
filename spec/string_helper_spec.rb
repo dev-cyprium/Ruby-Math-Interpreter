@@ -16,7 +16,7 @@ describe String do
 			end
 	end
 
-	describe ".is_space" do
+	describe ".is_space?" do
 		it "Should return true when a one space character is given" do
 			expect(" ".is_space?).to eql(true)
 		end
@@ -28,7 +28,7 @@ describe String do
 		end
 	end
 
-	describe "is_alnum" do
+	describe "is_alnum?" do
 		it "Should return true when a VAR is given" do
 			expect("VAR".is_alnum?).to eql(true)
 		end
