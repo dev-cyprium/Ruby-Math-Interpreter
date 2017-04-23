@@ -1,3 +1,5 @@
+require 'byebug'
+
 require_relative "token"
 #
 # String helper methods used
@@ -85,7 +87,12 @@ class Lexer
 				return Token.new(Token::RPARENT, ')')
 			end
 
-
+			# Parse comments
+			if @current_char == '{'
+				comment
+				return get_next_token
+			end
+			
 			# No match found, raise an error
 			error
 		end
@@ -141,7 +148,15 @@ class Lexer
 		raise 'Number too big Exception' if result.length > 15
 		result.to_i
 	end
-
+	
+	# Skips parsing of a comment
+	def comment
+		while not(@current_char == nil) and @current_char != '}'
+			advance
+		end
+		advance
+	end
+	
 	# Advance over all the whitespace characters
 	def skip_whitespace
 		while not(@current_char == nil) and @current_char.is_space?
