@@ -86,6 +86,9 @@ class Lexer
 			when ","
 				advance
 				return Token.new(Token::COMMA, ',')
+			when ":"
+				advance
+				return Token.new(Token::COLON, ':')
 			when "{"
 				comment
 				next

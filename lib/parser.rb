@@ -92,7 +92,7 @@ class Parser
 		
 		while @current_token.type == Token::COMMA
 			eat(Token::COMMA)
-			vad_nodes << Var.new(@current_token)
+			var_nodes << Var.new(@current_token)
 			eat(Token::ID)
 		end
 		

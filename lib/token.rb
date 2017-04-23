@@ -18,6 +18,9 @@ class Token
 	FLOAT_DIV = "FLOAT_DIV"
 	PROGRAM = "PROGRAM"
 	VAR = "VAR"
+	COLON = "COLUMN"
+	INTEGER = "INTEGER"
+	REAL = "REAL"
 	attr_accessor :type, :value
 
 	def initialize(type, value)

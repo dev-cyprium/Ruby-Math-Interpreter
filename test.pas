@@ -1,12 +1,10 @@
 PROGRAM test;
-BEGIN
-    BEGIN 
-    	{ This is a pascal comment }
-    	p := 1 div 2;
-        number := 2;
-        a := NumBer;
-        B := 10 * a + 10 * NUMBER * 4;
-        c := a - - b;
-    end;
-    x := 11;
+VAR
+	a, b : INTEGER;
+	y    : REAL;
+BEGIN 
+   { A simple Pascal program }
+   a := 2;
+   b := 10 * a + 10 * a DIV 4;
+   y := 20 / 7 + 3.14;
 END.
