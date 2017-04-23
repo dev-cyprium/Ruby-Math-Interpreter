@@ -1,9 +1,10 @@
 class Token
-	INTEGER = "INT"
+	INTEGER_CONST = "INT"
+	REAL_CONST = "REL"
 	PLUS = "PLU"
 	MINUS = "MIN"
 	MUL = "MUL"
-	DIV = "DIV"
+	INTEGER_DIV = "INTEGER_DIV"
 	EOF = "EOF"
 	LPARENT = "("
 	RPARENT = ")"
@@ -15,6 +16,8 @@ class Token
 	DOT = "DOT"
 	COMMA = "COMMA"
 	FLOAT_DIV = "FLOAT_DIV"
+	PROGRAM = "PROGRAM"
+	VAR = "VAR"
 	attr_accessor :type, :value
 
 	def initialize(type, value)
@@ -22,8 +25,6 @@ class Token
 		@value = value
 	end
 
-
-	# Begin/End keywords
 	RESERVED_KEYWORDS = {
 		"program" => Token.new("PROGRAM", "PROGRAM"),
 		"var" 		=> Token.new("VAR", "VAR"),

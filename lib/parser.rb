@@ -1,6 +1,7 @@
 require_relative 'token'
 require_relative 'node'
 require_relative 'lexer'
+
 #
 # Parser class for parsing the AST
 # Creates the tree of nodes, that the interpreter can exectute
@@ -39,13 +40,13 @@ class Parser
 		if token_type == @current_token.type
 			@current_token = @lexer.get_next_token
 		else
-			error
+			error(token_type)
 		end
 	end
 
 	# Error method, called when parsing fails
-	def error
-		raise "Unexpected token in syntax #{@current_token.type}"
+	def error(token_type)
+		raise "Unexpected token in syntax #{@current_token.type} (Got #{token_type})"
 	end
 
 	# Parentesies error method, raised when parentesies aren't closed
@@ -60,7 +61,7 @@ class Parser
 	def block
 		declaration_nodes = declarations
 		compound_statement_node = compound_statement
-		Block.new(declarations_nodes, compound_statement_node)
+		Block.new(declaration_nodes, compound_statement_node)
 	end
 	
 	#
@@ -111,17 +112,28 @@ class Parser
 	# 					| REAL
 	#
 	def type_spec
-		
+		token = @current_token
+		if @current_token.type == Token::INTEGER
+			eat(Token::INTEGER)
+		else
+			eat(Token::REAL)
+		end
+		Type.new(token)
 	end
 	
 	#
 	# Entry point for Pascal program
-	# program: compound_statement DOT
+	# program: PROGRAM variable SEMI block DOT
 	#
 	def program
-		node = compound_statement()
+		eat(Token::PROGRAM)
+		var_node = variable
+		prog_name = var_node.value
+		eat(Token::SEMI)
+		block_node = block
+		program_node = Program.new(prog_name, block_node)
 		eat(Token::DOT)
-		node
+		program_node
 	end
 	
 	#
@@ -225,18 +237,20 @@ class Parser
 
 	#
 	# Term method, the second method in the GRAMMAR
-	# term: factor((mul|div) factor) *
+	# term: factor((mul|div|float_div) factor) *
 	#
 	def term
 		node = factor()
 
-		while [Token::DIV, Token::MUL].include? @current_token.type 
+		while [Token::INTEGER_DIV, Token::FLOAT_DIV, Token::MUL].include? @current_token.type 
 			token = @current_token
 			case @current_token.type
-			when Token::DIV 
-				eat(Token::DIV)
+			when Token::INTEGER_DIV 
+				eat(Token::INTEGER_DIV)
 			when Token::MUL 
 				eat(Token::MUL)
+			when Token::FLOAT_DIV
+				eat(Token::FLOAT_DIV)
 			end
 
 			node = BinOp.new(node, token, factor() )
@@ -248,7 +262,8 @@ class Parser
 	# Used to parse variables and numbers
 	# factor: PLUS factor
 	#         | MINUS factor
-	#         | INTEGER
+	#         | INTEGER_CONST
+	#         | REAL_CONST
 	#         | LPARENT expr RPAREN
 	#         | variable
 	#
@@ -263,8 +278,11 @@ class Parser
 			eat(Token::MINUS)
 			node = UnaryOp.new(token, factor())
 			return node
-		when Token::INTEGER
-			eat(Token::INTEGER)
+		when Token::INTEGER_CONST
+			eat(Token::INTEGER_CONST)
+			return Num.new(token)
+		when Token::REAL_CONST
+			eat(Token::REAL_CONST)
 			return Num.new(token)
 		when Token::LPARENT
 			eat(Token::LPARENT)

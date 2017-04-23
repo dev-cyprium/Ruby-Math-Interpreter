@@ -47,7 +47,7 @@ class Lexer
 			return _id if @current_char.is_letter?
 
 			# Numeric token
-			return Token.new(Token::INTEGER, number) if @current_char.is_digit? 
+			return number if @current_char.is_digit? 
 
 			# Asignment character
 			if @current_char == ':' and peek() == '='
@@ -152,9 +152,9 @@ class Lexer
 				result += @current_char
 				advance
 			end		
-			token = Token.new("REAL_CONST", result.to_f )	
+			token = Token.new(Token::REAL_CONST, result.to_f )	
 		else 
-			token = Token.new("INTEGER_CONST", result.to_i)
+			token = Token.new(Token::INTEGER_CONST, result.to_i)
 		end
 	end
 	
