@@ -31,29 +31,31 @@ class Interpreter < NodeVisitor
 		@polish = []
 	end
 
-	# Interprets the given math expression
+	# Interprets the given AST
 	def interpret
 		return self.visit(@root)
 	end
 
-	# Creates the post-order notation of the given AST
-	# IT DOES NOT WORK WITH UNARY OPERATORS!
-	def to_reverse_polish
-		@polish = []
-		post_order_traverse(@root)
-		return @polish.join(" ")
-	end
-
 	private
-
-	def post_order_traverse(node)
-		return if node.nil?
-		post_order_traverse(node.left)
-		post_order_traverse(node.right)
-
-		@polish << node.to_s
+	def visit_Program(node)
+		self.visit(node.block)
 	end
-
+	
+	def visit_Block(node)
+		node.declarations.each do |declaration|
+			self.visit(declaration)
+		end
+		self.visit(node.compound_statement)
+	end
+	
+	def visit_VarDecl(node)
+		# Do nothing
+	end
+	
+	def visit_Type(node)
+		# Do nothing
+	end
+	
 	def visit_BinOp(node)
 		case node.op.type
 		when Token::PLUS
@@ -62,8 +64,10 @@ class Interpreter < NodeVisitor
 			return self.visit(node.left) - self.visit(node.right)
 		when Token::MUL
 			return self.visit(node.left) * self.visit(node.right)
-		when Token::DIV
+		when Token::INTEGER_DIV
 			return self.visit(node.left) / self.visit(node.right)
+		when Token::FLOAT_DIV
+			return self.visit(node.left).to_f / self.visit(node.right).to_f
 		end
 	end
 
