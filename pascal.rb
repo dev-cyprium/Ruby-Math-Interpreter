@@ -1,3 +1,5 @@
+require 'benchmark'
+
 require_relative 'lib/interpreter'
 
 file_name = ARGV[0]
@@ -8,5 +10,9 @@ end
 puts "Parsing pascal program..."
 puts data
 interpreter = Interpreter.interpreterFactory(data)
-interpreter.interpret
+Benchmark.bm do |bm|
+	bm.report do
+		interpreter.interpret
+	end
+end
 puts "Memory locations: #{Interpreter::GLOBAL_SCOPE}"
