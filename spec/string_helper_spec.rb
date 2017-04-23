@@ -35,6 +35,5 @@ describe String do
 		it "Should return true when a BEGIN is given" do
 			expect("BEGIN".is_alnum?).to eql(true)
 		end
-
 	end
 end
