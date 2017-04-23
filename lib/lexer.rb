@@ -1,5 +1,3 @@
-require 'byebug'
-
 require_relative "token"
 #
 # String helper methods used

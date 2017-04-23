@@ -12,4 +12,10 @@ describe Lexer do
 		# TODO: Write test cases for Pascal code
 		#
 	end
+	
+	it 'Should skip over comments' do
+		program = '{  This is a comment  }'
+		lex = Lexer.new(program)
+		expect(lex.get_next_token.type).to eql("EOF")
+	end
 end
