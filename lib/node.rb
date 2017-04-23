@@ -85,3 +85,52 @@ end
 #
 class NoOp < AST
 end
+
+#
+# Reporesent the whole programm
+#
+class Program < AST
+	attr_reader :name, :block
+	
+	def initialize(name, block)
+		@name = name
+		@block = block
+	end	
+end
+
+#
+# Represents a block
+#
+class Block < AST
+	attr_reader :declarations
+	attr_reader :compound_statement
+	
+	def initialize(declarations, compound_statement)
+		@declarations = declarations
+		@compound_statement = compound_statement
+	end
+end
+
+#
+# VarDecl represents a variable declaration
+#
+class VarDecl < AST
+	attr_reader :var_node, :type_node
+	
+	def initialize(var_node, type_node)
+		@var_nmode = var_node
+		@type_node = type_node
+	end	
+end
+
+#
+# Represents a type node ( INTEGER, REAL )
+#
+class Type < AST
+	attr_reader :token
+	
+	def initialize(token)
+		@token = token
+		@value = token.value
+	end	
+end
