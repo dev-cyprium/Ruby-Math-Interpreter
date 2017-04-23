@@ -101,7 +101,7 @@ class Interpreter < NodeVisitor
 		raise "Undefined variable #{var_name}" if val.nil?
 		val
 	end
-
+	
 	# Create interpreter with the given string
 	def self.interpreterFactory(string)
 		interpreter = Interpreter.new( Parser.new( Lexer.new( string ) ) )

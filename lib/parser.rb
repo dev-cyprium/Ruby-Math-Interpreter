@@ -52,7 +52,68 @@ class Parser
 	def par_error
 		raise 'Parentesies not closed'
 	end
-
+	
+	#
+	# A BEGIN END block for declaring variables
+	# block: declarations compound_statement
+	#
+	def block
+		declaration_nodes = declarations
+		compound_statement_node = compound_statement
+		Block.new(declarations_nodes, compound_statement_node)
+	end
+	
+	#
+	# The variable declarations
+	# declarations : VAR ( variable_declarations SEMI )+
+	#              | empty
+	#
+	def declarations
+		declarations = []
+		if @current_token.type == Token::VAR
+			eat(Token::VAR)
+			while @current_token.type == Token::ID
+				var_decl = variable_declaration
+				declarations.push(*var_decl)
+				eat(Token::SEMI)
+			end
+		end
+		declarations
+	end
+	
+	#
+	# The variable declaration
+	# variable_declaration : ID (COMMA ID)* COLON type_spec
+	#
+	def variable_declaration
+		var_nodes = [Var.new(@current_token)]
+		eat(Token::ID)
+		
+		while @current_token.type == Token::COMMA
+			eat(Token::COMMA)
+			vad_nodes << Var.new(@current_token)
+			eat(Token::ID)
+		end
+		
+		eat(Token::COLON)
+		
+		type_node = type_spec
+		var_declarations = []
+		var_nodes.each do |var_node|
+			var_declarations << VarDecl.new(var_node, type_node)
+		end
+		var_declarations
+	end
+	
+	#
+	# Variable types
+	# type_spec : INTEGER,
+	# 					| REAL
+	#
+	def type_spec
+		
+	end
+	
 	#
 	# Entry point for Pascal program
 	# program: compound_statement DOT
