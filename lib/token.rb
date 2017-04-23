@@ -13,7 +13,8 @@ class Token
 	END_PAS = "END"
 	SEMI = "SEMI"
 	DOT = "DOT"
-
+	COMMA = "COMMA"
+	FLOAT_DIV = "FLOAT_DIV"
 	attr_accessor :type, :value
 
 	def initialize(type, value)

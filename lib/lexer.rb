@@ -47,7 +47,7 @@ class Lexer
 			return _id if @current_char.is_letter?
 
 			# Numeric token
-			return Token.new(Token::INTEGER, integer) if @current_char.is_digit? 
+			return Token.new(Token::INTEGER, number) if @current_char.is_digit? 
 
 			# Asignment character
 			if @current_char == ':' and peek() == '='
@@ -76,19 +76,19 @@ class Lexer
 				return Token.new(Token::MUL, '*')
 			when "/"
 				advance
-				return Token.new(Token::DIV, "/")
+				return Token.new(Token::FLOAT_DIV, "/")
 			when "("
 				advance
 				return Token.new(Token::LPARENT, '(')
 			when ")"
 				advance
 				return Token.new(Token::RPARENT, ')')
-			end
-
-			# Parse comments
-			if @current_char == '{'
+			when ","
+				advance
+				return Token.new(Token::COMMA, ',')
+			when "{"
 				comment
-				return get_next_token
+				next
 			end
 			
 			# No match found, raise an error
@@ -137,14 +137,25 @@ class Lexer
 	end
 
 	# Gather all the grouped digits
-	def integer
+	def number
 		result = ''
 		while not(@current_char == nil) and @current_char.is_digit?
 			result += @current_char
 			advance
 		end
 		raise 'Number too big Exception' if result.length > 15
-		result.to_i
+		
+		if @current_char == '.'
+			result += @current_char
+			advance
+			while not(@current_char == nil) and @current_char.is_digit?
+				result += @current_char
+				advance
+			end		
+			token = Token.new("REAL_CONST", result.to_f )	
+		else 
+			token = Token.new("INTEGER_CONST", result.to_i)
+		end
 	end
 	
 	# Skips parsing of a comment
