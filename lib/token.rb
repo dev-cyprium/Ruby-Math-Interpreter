@@ -24,7 +24,12 @@ class Token
 
 	# Begin/End keywords
 	RESERVED_KEYWORDS = {
-		"begin" => Token.new("BEGIN", "BEGIN"),
-		"end" => Token.new("END", "END")
+		"program" => Token.new("PROGRAM", "PROGRAM"),
+		"var" 		=> Token.new("VAR", "VAR"),
+		"div"			=> Token.new("INTEGER_DIV", "DIV"),
+		"integer" => Token.new("INTEGER", "INTEGER"),
+		"real"		=> Token.new("REAL", "REAL"),
+		"begin" 	=> Token.new("BEGIN", "BEGIN"),
+		"end" 		=> Token.new("END", "END")
 	}
 end
