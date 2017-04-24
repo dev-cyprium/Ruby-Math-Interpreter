@@ -6,12 +6,10 @@ class SymbolTable
 	end	
 	
 	def define(symb)
-		puts "Defined: #{symb}"
 		@symbols[ symb.name ] = symb
 	end
 	
 	def lookup(name)
-		puts "Lookup: #{name}"
 		symbol = @symbols[ name ]
 	end
 	
