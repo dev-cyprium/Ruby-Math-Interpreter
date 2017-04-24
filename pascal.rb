@@ -8,18 +8,25 @@ data = ''
 File.open(file_name, "r") do |file|
 	data = file.read
 end
-puts "Parsing pascal program..."
 puts data
+puts "[INFO] Creating symbol table..."
 lexer  = Lexer.new data
 parser = Parser.new lexer
 tree = parser.parse
 symb_table  = SymbolTableBuilder.new
 
-# interpreter = Interpreter.interpreterFactory(data)
 Benchmark.bm do |bm|
 	bm.report do
-		# interpreter.interpret
 		symb_table.visit(tree)
 	end
 end
-# puts "Memory locations: #{Interpreter::GLOBAL_SCOPE}"
+
+puts "[INFO] Interpreting pascal program..."
+interpreter = Interpreter.interpreterFactory(data)
+Benchmark.bm do |bm|
+	bm.report do
+		interpreter.interpret
+	end
+end
+puts "[INFO] Symbol Table contents: #{symb_table.symtab.defined_symbols}"
+puts "[INFO] Runtime Memory contents: #{Interpreter::GLOBAL_SCOPE}"

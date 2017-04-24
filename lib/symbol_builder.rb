@@ -2,6 +2,8 @@ require_relative 'interpreter'
 require_relative 'memory'
 
 class SymbolTableBuilder < NodeVisitor 
+	attr_reader :symtab
+	
 	def initialize
 		@symtab = SymbolTable.new
 	end
@@ -44,5 +46,19 @@ class SymbolTableBuilder < NodeVisitor
 		var_name = node.var_node.value
 		var_symbol = VarSymbol.new(var_name, type_symbol)
 		@symtab.define(var_symbol)
+	end
+	
+	def visit_Assign(node)
+		var_name   = node.left.value
+		var_symbol = @symtab.lookup(var_name)
+		raise "Undefined variable #{var_name}." if var_symbol.nil?
+		self.visit(node.right)
+	end
+	
+	def visit_Var(node)
+		var_name = node.value
+		var_symbol = @symtab.lookup(var_name)
+		
+		raise "Undefined variable #{var_name}" if var_symbol.nil?
 	end
 end
