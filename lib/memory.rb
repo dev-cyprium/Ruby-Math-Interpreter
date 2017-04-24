@@ -15,18 +15,6 @@ class SymbolTable
 		symbol = @symbols[ name ]
 	end
 	
-	def to_s
-		buffer = ''
-		@symbols.each do |key, value|
-			buffer += "#{key}: #{value} \n"
-		end
-		buffer
-	end
-	
-	def inspect
-		to_s
-	end
-	
 	private
 		def init_builtins
 			self.define(BuiltinTypeSymbol.new('INTEGER'))
@@ -49,26 +37,10 @@ class BuiltinTypeSymbol < PascalSymbol
 	def initialize(name)
 		super(name)
 	end
-	
-	def to_s
-		@name
-	end
-	
-	def inspect
-		to_s
-	end 
 end
 
 class VarSymbol < PascalSymbol
 	def initialize(name, type)
 		super(name, type)
-	end
-	
-	def to_s
-		"<#{name}:#{type}>"
-	end
-	
-	def inspect
-		to_s
 	end
 end	

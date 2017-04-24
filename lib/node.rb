@@ -118,7 +118,7 @@ class VarDecl < AST
 	attr_reader :var_node, :type_node
 	
 	def initialize(var_node, type_node)
-		@var_nmode = var_node
+		@var_node = var_node
 		@type_node = type_node
 	end	
 end
@@ -127,7 +127,7 @@ end
 # Represents a type node ( INTEGER, REAL )
 #
 class Type < AST
-	attr_reader :token
+	attr_reader :token, :value
 	
 	def initialize(token)
 		@token = token
