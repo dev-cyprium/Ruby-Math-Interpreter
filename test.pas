@@ -1,9 +1,7 @@
 PROGRAM test;
 VAR
-	x : INTEGER;
+	x1, x2 : INTEGER;
 	y : REAL;
 BEGIN 
-	x := 1;
-	y := 2.23;
-	x := x + y;
+	x1 := 5 mod 2;
 END.
