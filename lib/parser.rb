@@ -167,7 +167,7 @@ class Parser
 		end
 
 		# Throw an error when SEMI is missing
-		error() if @current_token.type == Token::ID
+		error(@current_token) if @current_token.type == Token::ID
 
 		results
 	end

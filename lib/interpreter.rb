@@ -20,10 +20,9 @@ end
 # feed in the AST ( Abstract syntax tree you want to calculate )
 #
 class Interpreter < NodeVisitor
-		
-	# Variable memory locations
+	
 	GLOBAL_SCOPE = {}
-
+	
 	def initialize(parser)
 		@parser = parser
 		@root = @parser.parse
@@ -102,7 +101,6 @@ class Interpreter < NodeVisitor
 	def visit_Var(node)
 		var_name = node.value
 		val = GLOBAL_SCOPE[var_name.to_sym]
-		raise "Undefined variable #{var_name}" if val.nil?
 		val
 	end
 	
